@@ -26,10 +26,13 @@ class DTE:
     def asignar_tipo_dte_palabras(self):
         if self.tipo_dte == 33:
             self.tipo_dte_palabras = "FACTURA ELECTRÓNICA"
-            self.tipo_dte_abreviatura = "FC"
+            self.tipo_dte_abreviatura = "FE"
         elif self.tipo_dte == 34:
             self.tipo_dte_palabras = "ELECTRÓNICA EXENTA"
-            self.tipo_dte_abreviatura = "FC"
+            self.tipo_dte_abreviatura = "FE"
+        elif self.tipo_dte == 39:
+            self.tipo_dte_palabras = "BOLETA ELECTRONICA"
+            self.tipo_dte_abreviatura = "BE"            
         elif self.tipo_dte == 30:
             self.tipo_dte_palabras = "AFECTA"
             self.tipo_dte_abreviatura = "FC"
@@ -67,9 +70,9 @@ class DTE:
     def parse_encabezado(self):
         # Datos emisor
         self.rut_proveedor = self.tree.find('.//{http://www.sii.cl/SiiDte}RUTEmisor').text
-        self.razon_social = self.tree.find('.//{http://www.sii.cl/SiiDte}RznSoc').text
-        self.giro_proveedor = self.tree.find('.//{http://www.sii.cl/SiiDte}GiroEmis').text if self.tree.find(
-            './/{http://www.sii.cl/SiiDte}GiroEmis') is not None else 0
+        self.razon_social = self.tree.find('.//{http://www.sii.cl/SiiDte}RznSocEmisor').text
+        self.giro_proveedor = self.tree.find('.//{http://www.sii.cl/SiiDte}GiroEmisor').text if self.tree.find(
+            './/{http://www.sii.cl/SiiDte}GiroEmisor') is not None else 0
         self.direccion_proveedor = self.tree.find('.//{http://www.sii.cl/SiiDte}DirOrigen').text if self.tree.find(
             './/{http://www.sii.cl/SiiDte}DirOrigen') is not None else 0
         self.ciudad_proveedor = self.tree.find('.//{http://www.sii.cl/SiiDte}CiudadOrigen').text if self.tree.find(
@@ -144,6 +147,7 @@ class DTE:
             "32": "Factura de venta bienes y servicios",
             "35": "Boleta",
             "38": "Boleta Exenta",
+            "39": "Boleta Electrónica",            
             "45": "Factura de Compra",
             "55": "Nota de Débito",
             "60": "Nota de Crédito",
